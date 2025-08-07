@@ -5,8 +5,6 @@ import 'package:on_property/components/textfield_with_filter.dart';
 import 'package:on_property/utils/colorscheme.dart';
 import 'package:on_property/utils/constants.dart';
 
-
-
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -39,12 +37,11 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
-
             listForSecondComponent(),
 
             /*.............Carousal..........................*/
 
-            appCarousal(context),
+            AppCarousel(),
             Padding(
               padding: const EdgeInsets.only(
                   left: 8.0, right: 8.0, top: 30.0, bottom: 10),

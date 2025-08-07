@@ -1,36 +1,48 @@
-
-import 'package:carousel_nullsafety/carousel_nullsafety.dart';
+// import 'package:carousel_nullsafety/carousel_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:on_property/utils/colorscheme.dart';
 import 'package:on_property/utils/constants.dart';
 import '../screens/locationForHouseDetails.dart';
 
+import 'package:carousel_slider/carousel_slider.dart';
+
 Stack customCarousal(BuildContext context) {
+  final List<String> images = [
+    'assets/images/carousal1.jpg',
+    'assets/images/carousal2.jpg',
+    'assets/images/carousal3.jpg',
+  ];
+
   return Stack(
     children: [
       Column(
         children: [
-          Container(
+          SizedBox(
             height: MediaQuery.of(context).size.height * 0.35,
-            child: Carousel(
-              dotSize: 4,
-              dotBgColor: Colors.transparent,
-              borderRadius: false,
-              showIndicator: true,
-              noRadiusForIndicator: false,
-              images: [
-                ExactAssetImage(
-                  'assets/images/carousal1.jpg',
-                ),
-                ExactAssetImage('assets/images/carousal2.jpg'),
-                ExactAssetImage('assets/images/carousal3.jpg'),
-              ],
+            child: CarouselSlider(
+              options: CarouselOptions(
+                autoPlay: true,
+                viewportFraction: 1.0,
+                height: MediaQuery.of(context).size.height * 0.35,
+              ),
+              items: images.map((image) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.zero,
+                      child: Image.asset(
+                        image,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
+                    );
+                  },
+                );
+              }).toList(),
             ),
           ),
-          SizedBox(
-            height: 25,
-          )
+          SizedBox(height: 25),
         ],
       ),
       Container(
@@ -51,43 +63,43 @@ Stack customCarousal(BuildContext context) {
                 ),
               ),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.12,
-            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.12),
             Container(
               height: 30,
               width: 80,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: primaryColor),
+                borderRadius: BorderRadius.circular(20.0),
+                color: primaryColor,
+              ),
               child: Center(
-                  child: Text(
-                'For Sale',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              )),
+                child: Text(
+                  'For Sale',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Text(
               'Hilton House',
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            SizedBox(
-              height: 5,
-            ),
+            SizedBox(height: 5),
             Row(
               children: [
                 Text(
                   'New York, USA   ',
                   style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12),
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
                 ),
                 SvgPicture.asset(
                   'assets/icons/squareft.svg',
@@ -96,9 +108,10 @@ Stack customCarousal(BuildContext context) {
                 Text(
                   '  750 (Sq Fts)',
                   style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12),
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
                 ),
               ],
             )
@@ -257,7 +270,6 @@ Container secondComponentOfDetails(BuildContext context) {
 Container thirdComponentOfPhotos(BuildContext context) {
   return Container(
     height: MediaQuery.of(context).size.height * 0.28,
-
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -458,49 +470,69 @@ Container sixthComponent(BuildContext context) {
         ),
         Center(
             child: Text(
-              'John Smith',
-              style: TextStyle(
-                  color: primaryColor, fontWeight: FontWeight.bold, fontSize: 18),
-            )),
+          'John Smith',
+          style: TextStyle(
+              color: primaryColor, fontWeight: FontWeight.bold, fontSize: 18),
+        )),
         Center(
             child: Text(
-              'Takaful Real Estate',
-              style: TextStyle(
-                  color: Colors.black,  fontSize: 14),
-            )),
-        SizedBox(height: 15,),
-        Row(mainAxisAlignment: MainAxisAlignment.center,
+          'Takaful Real Estate',
+          style: TextStyle(color: Colors.black, fontSize: 14),
+        )),
+        SizedBox(
+          height: 15,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               height: 40,
               width: 100,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: Colors.grey[200]
-              ),
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Colors.grey[200]),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.phone_in_talk,color: primaryColor,size: 17,),
-                  SizedBox(width: 10,),
-                  Text('Call',style: TextStyle(fontWeight: FontWeight.bold),)
+                  Icon(
+                    Icons.phone_in_talk,
+                    color: primaryColor,
+                    size: 17,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'Call',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )
                 ],
               ),
             ),
-            SizedBox(width: 30,),
+            SizedBox(
+              width: 30,
+            ),
             Container(
               height: 40,
               width: 100,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.grey[200]
-              ),
+                  color: Colors.grey[200]),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.mail,color: primaryColor,size: 17,),
-                  SizedBox(width: 10,),
-                  Text('Message',style: TextStyle(fontWeight: FontWeight.bold),)
+                  Icon(
+                    Icons.mail,
+                    color: primaryColor,
+                    size: 17,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'Message',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )
                 ],
               ),
             )
