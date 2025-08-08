@@ -34,7 +34,7 @@ class _DashBoardState extends State<DashBoard> {
     if (_currentTab == 1) currentScreen = SearchProperties();
     if (_currentTab == 2) currentScreen = Wishlist();
     if (_currentTab == 4) currentScreen = Profile();
-    title = 'Hello, John Smith';
+    title = 'Hello, Younis';
     super.initState();
   }
 
@@ -73,7 +73,7 @@ class _DashBoardState extends State<DashBoard> {
                 setState(() {
                   currentScreen = Home();
                   _currentTab = 0;
-                  title = 'Hello, John Smith';
+                  title = 'Hello, Younis';
                 });
               },
               child: Container(
@@ -110,20 +110,7 @@ class _DashBoardState extends State<DashBoard> {
                   child: SvgPicture.asset('assets/icons/heart.svg',
                       color: _currentTab == 2 ? primaryColor : Colors.grey)),
             ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  currentScreen = Chat();
-                  _currentTab = 3;
-                  title = 'Chat';
-                });
-              },
-              child: Container(
-                  width: MediaQuery.of(context).size.width * 0.20,
-                  height: 20,
-                  child: SvgPicture.asset('assets/icons/chat.svg',
-                      color: _currentTab == 3 ? primaryColor : Colors.grey)),
-            ),
+          
             GestureDetector(
               onTap: () {
                 setState(() {

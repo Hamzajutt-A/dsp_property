@@ -1,164 +1,173 @@
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:on_property/components/reusable_textfield.dart';
+import 'package:flutter_glow/flutter_glow.dart';
 import 'package:on_property/components/social_media_button.dart';
 import 'package:on_property/utils/colorscheme.dart';
 import 'package:on_property/widgets/custom_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:on_property/components/reusable_textfield.dart';
 
-class SignUp extends StatefulWidget {
+class SignUp extends StatelessWidget {
   @override
-  _SignUpState createState() => _SignUpState();
-}
-
-class _SignUpState extends State<SignUp> {
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Color(0xfff3f3f4),
       statusBarIconBrightness: Brightness.dark,
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-            child: Container(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /* ....................................Log Back into your Account.....................*/
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
-              ),
-              Text(
-                'SIGN UP',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text('Sign Up Now and Get The Best Deal'),
-              Container(
-                height: 5,
-                width: 70,
-                margin: EdgeInsets.only(top: 10.0),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: primaryColor),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.05,
-              ),
-              Text(
-                'Username',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              reusableTextField(hint: 'Enter your Username'),
-              SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                'Email',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              reusableTextField(hint: 'Enter Email Address'),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Password',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              reusableTextField(hint: 'Enter Password'),
-              SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
-              ),
-              /* ..........................Sign In Now Button....................*/
-
-              CustomButton(
-                callback: () {
-                  Navigator.pushNamed(context, 'Dashboard');
-                },
-                title: 'Sign Up Now',
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
-              ),
-              Center(
-                child: Text(
-                  'or Continue With',
-                  style: TextStyle(color: Colors.grey),
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
+            // 🔹 Background image
+            Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/image/hero-two-bg.png'),
+                  fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              /* ..........................Row of Two Containers.........................*/
+            ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // 🔹 Scrollable Signup Content
+            SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  socialMediaButton(
-                      img: 'assets/icons/google.png',
-                      callback: () {},
-                      text: 'Google',
-                      color: Colors.grey.shade200),
-                  socialMediaButton(
-                      img: 'assets/icons/fb.png',
-                      callback: () {},
-                      text: 'Facebook',
-                      color: Colors.grey.shade200),
-                ],
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                  const SizedBox(height: 30),
 
-              /* ........................Row of Don't have an account text..................*/
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Already have an Account? ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  // 🔹 Glowing Signup Form
+                  GlowContainer(
+                    glowColor: primaryColor.withOpacity(0.3),
+                    blurRadius: 20,
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                    spreadRadius: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GlowText(
+                            'Create an Account',
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: primaryColor,
+                            ),
+                            glowColor: primaryColor,
+                          ),
+                          const SizedBox(height: 6),
+                          const Text(
+                            'Create your new account',
+                            style: TextStyle(color: Colors.black54),
+                          ),
+                          Container(
+                            height: 4,
+                            width: 70,
+                            margin: const EdgeInsets.only(top: 10.0, bottom: 30),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: primaryColor,
+                            ),
+                          ),
+
+                          const Text(
+                            'Full Name',
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(height: 8),
+                          const GlowingTextField(hint: 'Enter Full Name'),
+                          const SizedBox(height: 20),
+
+                          const Text(
+                            'Email',
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(height: 8),
+                          const GlowingTextField(hint: 'Enter Email Address'),
+                          const SizedBox(height: 20),
+
+                          const Text(
+                            'Password',
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(height: 8),
+                          const GlowingTextField(hint: 'Enter Password'),
+                          const SizedBox(height: 20),
+
+                          const Text(
+                            'Confirm Password',
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(height: 8),
+                          const GlowingTextField(hint: 'Confirm Password'),
+                          const SizedBox(height: 30),
+
+                          // 🔹 Glowing Register Button
+                           CustomButton(
+                            title: "Register",
+                            callback: () async {
+                              Navigator.pushNamed(context, 'Dashboard');
+                              SharedPreferences _prefs =
+                                  await SharedPreferences.getInstance();
+                              _prefs.setBool("isLoggedIn", true);
+                            },
+                          ),
+               
+
+
+                          const SizedBox(height: 25),
+                          socialMediaButton(
+                            img: 'assets/icons/google.png',
+                            callback: () {},
+                            text: 'Continue With Google',
+                            color: Colors.grey.shade100,
+                          ),
+
+                          const SizedBox(height: 25),
+
+                          // 🔹 Already have an account?
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Already have an account? ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, color: Colors.black),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, 'SignIn');
+                                },
+                                child: const Text(
+                                  'Sign In',
+                                  style: TextStyle(
+                                    color: primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, 'SignIn');
-                      },
-                      child: Text(
-                        'Sign In',
-                        style: TextStyle(
-                            color: primaryColor,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline),
-                      ))
+
+                  const SizedBox(height: 30),
                 ],
-              )
-            ],
-          ),
-        )),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

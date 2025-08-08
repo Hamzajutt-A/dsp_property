@@ -55,7 +55,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       height: 10.0,
                     ),
                     Text(
-                      'John Smith',
+                      'Younis',
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.black,

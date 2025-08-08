@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:on_property/screens/onboarding/onboarding_screen1.dart';
-
 import 'package:on_property/utils/colorscheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,36 +15,20 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
     init();
-    // new Future.delayed(const Duration(seconds: 5), () {
-    //   Navigator.of(context).pushReplacement(MaterialPageRoute(
-    //       builder: (BuildContext context) => IntroductionPage()
-    //       // SignUpWithOptions()
-    //       ));
-    // });
   }
 
   Future<Timer> init() async {
-    return Timer(const Duration(seconds: 3), onDoneLoading);
+    return Timer(const Duration(seconds: 6), onDoneLoading);
   }
 
   onDoneLoading() async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     var status = _prefs.getBool('isLoggedIn') ?? false;
-    print(status);
-    // print(PreferencesKeys.token.isNotEmpty);
-    print("----------------2--------");
 
-    if (this.mounted) {
+    if (mounted) {
       if (status) {
-        print("----------------3--------");
-        // Navigator.of(context).pushReplacement(
-        //   MaterialPageRoute(
-        //     builder: (BuildContext context) =>
         Navigator.pushReplacementNamed(context, 'Dashboard');
-        // ),
-        //);
       } else {
-        print("----------------4--------");
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (BuildContext context) => const IntroductionPage(),
@@ -58,25 +41,35 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light));
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+    ));
 
     return Scaffold(
       body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+        width: double.infinity,
+        height: double.infinity,
         decoration: BoxDecoration(
-          color: primaryColor.withOpacity(0.4),
           image: DecorationImage(
-              fit: BoxFit.cover, image: AssetImage('assets/images/house.jpg')),
-        ),
-        child: Center(
-          child: Image.asset(
-            'assets/images/splash_img.png',
-            height: 350,
-            width: 350,
-            color: Colors.white,
+            fit: BoxFit.cover,
+            image: AssetImage('assets/images/splash_img (2).png'),
           ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: 80), // spacing from top
+            // Image.asset(
+            //   'assets/images/my_logo.jpg',
+            //   height: 150,
+            //   width: 150,
+            //   color: Colors.white,
+            // ),
+            const SizedBox(height: 20),
+            Spacer(),
+            // You can add a loading indicator or slogan here if needed
+            const SizedBox(height: 40),
+          ],
         ),
       ),
     );

@@ -6,19 +6,21 @@ socialMediaButton({Function()?  callback, String? img, String? text,Color? color
     onTap: callback,
     child: Container(
       height: 50,
-      width: 150,
+      // width: 150,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40.0),
         color:color??Colors.white,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Image.asset(
                 img!,
-                height: 40,
+                height: 30,
               )),
+              SizedBox(width: 30,),
           Text(
             text!,
             style: TextStyle(fontWeight: FontWeight.w700),

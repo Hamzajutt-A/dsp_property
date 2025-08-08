@@ -85,7 +85,7 @@ class NewsAndBlogDetailsBody extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  'Post By John Smith',
+                  'Post By Younis',
                   style: TextStyle(color: primaryColor),
                 ),
                 SizedBox(

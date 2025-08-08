@@ -16,7 +16,7 @@ ListView followersList() {
     'assets/images/person9.jpg',
     'assets/images/person10.jpg',
   ];
-  List<String> personNames=['Aiden Ken','Paul Phoenix','Ricardo John','John Smith ','Joe Smith ','Juan Carlos','Mike Jones ','David Smith','Peter Parker','Tony Hector'];
+  List<String> personNames=['Aiden Ken','Paul Phoenix','Ricardo John','Younis ','Joe Smith ','Juan Carlos','Mike Jones ','David Smith','Peter Parker','Tony Hector'];
 
 
   return ListView.builder(

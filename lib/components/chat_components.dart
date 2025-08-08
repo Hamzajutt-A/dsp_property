@@ -6,7 +6,7 @@ import 'package:on_property/utils/colorscheme.dart';
 List<String> images=['assets/images/person1.jpg','assets/images/person2.jpeg','assets/images/person3.png','assets/images/person4.jpg','assets/images/person5.png','assets/images/person6.jpeg','assets/images/person7.jpg','assets/images/person8.jpg','assets/images/person9.jpg','assets/images/person10.jpg',];
 List<String> msgStatus=['Read...','Pending...','Read...','Read...','Read...','Read...','Pending...','Read...','Read...','Pending...'];
 List<String> msg=['Hey !Please make sure to Check my document' ,'Hello!','Hey pal! I need a favour from you','We will meet at 10 p.m','What\'s the status of your work','Please! email your resume at the mentioned email address','Let\'s have some coffee tonight',' I will be at office at sharp 8 a.m','Can we meet','Just received your docs!'];
-List<String> personNames=['Aiden Ken','Paul Phoenix','Ricardo John','John Smith ','Joe Smith ','Juan Carlos','Mike Jones ','David Smith','Peter Parker','Tony Hector'];
+List<String> personNames=['Aiden Ken','Paul Phoenix','Ricardo John','Younis ','Joe Smith ','Juan Carlos','Mike Jones ','David Smith','Peter Parker','Tony Hector'];
 verticalChatList(BuildContext context,int index){
   return Padding(
     padding: const EdgeInsets.only(left:8.0,right: 8.0,),

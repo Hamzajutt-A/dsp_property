@@ -86,7 +86,7 @@ appBarForChatScreen(BuildContext context) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('John Smith'),
+                      Text('Younis'),
                       Text(
                         'online',
                         style: TextStyle(color: Colors.grey),

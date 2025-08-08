@@ -72,7 +72,7 @@ class _SettingsState extends State<Settings> {
                   Text('Name'),
                   TextField(cursorColor: primaryColor,
                     decoration: InputDecoration(
-                        hintText: 'John Smith',focusedBorder: UnderlineInputBorder(
+                        hintText: 'Younis',focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: primaryColor)
                     )
 

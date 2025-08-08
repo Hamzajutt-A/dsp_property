@@ -77,6 +77,10 @@ class _CustomBottomNavigatioBarState extends State<CustomBottomNavigatioBar> {
                     ),
                   ),
                 ),
+            
+            
+            
+            
               ],
             ),
             Spacer(),

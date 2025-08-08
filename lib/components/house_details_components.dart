@@ -470,7 +470,7 @@ Container sixthComponent(BuildContext context) {
         ),
         Center(
             child: Text(
-          'John Smith',
+          'Younis',
           style: TextStyle(
               color: primaryColor, fontWeight: FontWeight.bold, fontSize: 18),
         )),

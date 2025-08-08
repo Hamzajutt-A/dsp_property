@@ -56,7 +56,7 @@ firstHalf(BuildContext context) {
           backgroundImage: AssetImage('assets/images/john.jpg'),
         ),
         Text(
-          'John Smith',
+          'Younis',
           style: kh1,
         ),
         Text(

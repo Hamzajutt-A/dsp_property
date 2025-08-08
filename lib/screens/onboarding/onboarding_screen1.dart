@@ -1,6 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:on_property/screens/signup_with_options.dart';
+import 'package:flutter_glow/flutter_glow.dart';
+import 'package:on_property/screens/sign_in.dart';
 import 'package:on_property/utils/app_assets.dart';
 import 'package:on_property/utils/colorscheme.dart';
 import 'package:on_property/widgets/introduction_page_widget.dart';
@@ -16,142 +17,135 @@ class IntroductionPage extends StatefulWidget {
 class _IntroductionPageState extends State<IntroductionPage> {
   late int selectedPage;
   late final PageController _pageController;
-  bool rememberMe = false;
+
+  final pageCount = 3;
+
   @override
   void initState() {
     selectedPage = 0;
-    _pageController = PageController(initialPage: selectedPage.toInt());
+    _pageController = PageController(initialPage: selectedPage);
     super.initState();
   }
 
-  final pageCount = 3;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
+          // 🔹 Page View
           PageView(
-              controller: _pageController,
-              scrollDirection: Axis.horizontal,
-              onPageChanged: (page) {
-                setState(() {
-                  selectedPage = page;
-                });
-              },
-              children: [
-                IndroductionPage(
-                  imagepath: AppAssets.onbordingImage1,
-                  title: "Search Advance Filter",
-                  description:
-                      "Discover your property with advance filter like price, distance and calendar",
-                ),
-                IndroductionPage(
-                  imagepath: AppAssets.onbordingImage2,
-                  title: "Find And Post Without Broker",
-                  description:
-                      "Get your property directly with no broker investment. Post requirements in few seconds.",
-                ),
-                IndroductionPage(
-                  imagepath: AppAssets.onbordingImage3,
-                  title: "24 Hour Support Available",
-                  description:
-                      "From Scheduling to Invoicing. All your rental process gathered in one place.",
-                ),
-              ]),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 50),
-            child: Container(
-              alignment: Alignment.bottomCenter,
+            controller: _pageController,
+            onPageChanged: (page) {
+              setState(() {
+                selectedPage = page;
+              });
+            },
+            children: [
+              IndroductionPage(
+                imagepath: AppAssets.onbordingImage1,
+                title: "Smart Property, Smarter Future",
+                description:
+                    "Build lasting wealth through properties that appreciate over time.",
+              ),
+              IndroductionPage(
+                imagepath: AppAssets.onbordingImage2,
+                title: "Stable. Secure. Real Estate",
+                description:
+                    "Reliable returns, tangible assets, and a foundation for generations.",
+              ),
+              IndroductionPage(
+                imagepath: AppAssets.onbordingImage3,
+                title: "Grow with Every Square Foot",
+                description:
+                    "Find the right location, make the right decision, watch your portfolio grow.",
+              ),
+            ],
+          ),
+
+          // 🔹 Bottom Controls
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 6.h),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   DotsIndicator(
                     dotsCount: pageCount,
                     position: selectedPage.toDouble(),
-                    decorator: const DotsDecorator(
-                      size: Size.square(11.0),
-                      color: Colors.grey, // Inactive color
+                    decorator: DotsDecorator(
+                      size: const Size.square(9.0),
+                      activeSize: const Size(24.0, 9.0),
+                      activeShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      color: Colors.grey.shade300,
                       activeColor: primaryColor,
                     ),
                   ),
-                  const SizedBox(height: 50.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 100,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        child: ElevatedButton(
+                  SizedBox(height: 5.h),
+
+                  // 🔹 Navigation Buttons
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // 🔹 Skip Button
+                        GlowButton(
+                          width: 40.w,
+                          height: 45,
+                          borderRadius: BorderRadius.circular(10),
+                          glowColor: primaryColor.withOpacity(0.4),
+                          color: primaryColor,
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (_) => SignIn()),
+                            );
+                          },
                           child: Text(
                             "Skip",
                             style: TextStyle(
                               color: whitecolor,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13.sp,
                             ),
                           ),
+                        ),
+
+                        // 🔹 Next / Done Button
+                        GlowButton(
+                          width: 40.w,
+                          height: 45,
+                          borderRadius: BorderRadius.circular(10),
+                          glowColor: primaryColor.withOpacity(0.4),
+                          color: primaryColor,
                           onPressed: () {
-                            Navigator.pushReplacement(
+                            if (selectedPage == pageCount - 1) {
+                              Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                         SignUpWithOptions()));
+                                MaterialPageRoute(builder: (_) => SignIn()),
+                              );
+                            } else {
+                              _pageController.nextPage(
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.easeInOut,
+                              );
+                            }
                           },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: primaryColor,
-                            textStyle: const TextStyle(
-                              fontSize: 14,
-                            ),
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 40,
-                        width: 100,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        child: ElevatedButton(
                           child: Text(
-                            "Next",
+                            selectedPage == pageCount - 1 ? "Done" : "Next",
                             style: TextStyle(
                               color: whitecolor,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.bold,
-                              fontSize: 13.sp,
-                            ),
-                          ),
-                          onPressed: () {
-                            if (selectedPage == 2) {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          SignUpWithOptions()));
-                            }
-                            _pageController.nextPage(
-                                duration: Duration(microseconds: 1000),
-                                curve: Curves.decelerate);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: primaryColor,
-                            textStyle: const TextStyle(
-                              fontSize: 14,
-                            ),
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

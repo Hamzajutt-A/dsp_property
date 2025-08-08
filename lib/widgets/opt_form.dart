@@ -1,136 +1,87 @@
 import 'package:flutter/material.dart';
-import 'package:on_property/utils/constants.dart';
+import 'package:on_property/utils/colorscheme.dart';
 
 class OptForm extends StatefulWidget {
+  const OptForm({super.key});
+
   @override
   _OptFormState createState() => _OptFormState();
 }
 
 class _OptFormState extends State<OptForm> {
-  late FocusNode pin2FocusNode;
-  late FocusNode pin3FocusNode;
-  late FocusNode pin4FocusNode;
-  late FocusNode pin5FocusNode;
-  late FocusNode pin6FocusNode;
-
-  @override
-  void initState() {
-    super.initState();
-    pin2FocusNode = FocusNode();
-    pin3FocusNode = FocusNode();
-    pin4FocusNode = FocusNode();
-    pin5FocusNode = FocusNode();
-    pin6FocusNode = FocusNode();
-  }
+  final List<FocusNode> _focusNodes =
+      List.generate(6, (index) => FocusNode());
+  final List<TextEditingController> _controllers =
+      List.generate(6, (index) => TextEditingController());
 
   @override
   void dispose() {
+    for (final node in _focusNodes) {
+      node.dispose();
+    }
+    for (final controller in _controllers) {
+      controller.dispose();
+    }
     super.dispose();
-    pin2FocusNode.dispose();
-    pin3FocusNode.dispose();
-    pin4FocusNode.dispose();
-    pin5FocusNode.dispose();
-    pin6FocusNode.dispose();
   }
 
-  void nextField({String? value, FocusNode? focusNode}) {
-    if (value!.length == 1) {
-      focusNode!.requestFocus();
+  void _nextField(int index, String value) {
+    if (value.length == 1 && index < 5) {
+      _focusNodes[index + 1].requestFocus();
+    } else if (index == 5) {
+      _focusNodes[index].unfocus();
     }
+  }
+
+  Widget _buildOtpBox(int index) {
+    return Container(
+      width: 35,
+      height: 40,
+      margin: EdgeInsets.symmetric(horizontal: 4),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 4,
+            offset: Offset(0, 2),
+          ),
+        ],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: TextFormField(
+        controller: _controllers[index],
+        focusNode: _focusNodes[index],
+        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        keyboardType: TextInputType.number,
+        textAlign: TextAlign.center,
+        maxLength: 1,
+        cursorWidth: 1.5,
+        cursorHeight: 20,
+        decoration: InputDecoration(
+          counterText: "",
+          filled: true,
+          fillColor: Colors.grey.shade100,
+          contentPadding: EdgeInsets.zero,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: primaryColor.withOpacity(0.5)),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: primaryColor, width: 1.5),
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        onChanged: (value) => _nextField(index, value),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-            height: 60,
-            width: 50,
-            child: TextFormField(
-                autofocus: true,
-                style: TextStyle(fontSize: 24),
-                obscureText: true,
-                onChanged: (value) {
-                  nextField(value: value, focusNode: pin2FocusNode);
-                },
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                decoration: optInputDecoration),
-          ),
-          Container(
-            height: 60,
-            width: 50,
-            child: TextFormField(
-                autofocus: false,
-                style: TextStyle(fontSize: 24),
-                focusNode: pin2FocusNode,
-                obscureText: true,
-                onChanged: (value) {
-                  nextField(value: value, focusNode: pin3FocusNode);
-                },
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                decoration: optInputDecoration),
-          ),
-          Container(
-            height: 60,
-            width: 50,
-            child: TextFormField(
-                style: TextStyle(fontSize: 24),
-                focusNode: pin3FocusNode,
-                obscureText: true,
-                onChanged: (value) {
-                  nextField(value: value, focusNode: pin4FocusNode);
-                },
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                decoration: optInputDecoration),
-          ),
-          Container(
-            height: 60,
-            width: 50,
-            child: TextFormField(
-                style: TextStyle(fontSize: 24),
-                focusNode: pin4FocusNode,
-                obscureText: true,
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  nextField(value: value, focusNode: pin5FocusNode);
-                },
-                decoration: optInputDecoration),
-          ),
-          Container(
-            height: 60,
-            width: 50,
-            child: TextFormField(
-                style: TextStyle(fontSize: 24),
-                focusNode: pin5FocusNode,
-                obscureText: true,
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  nextField(value: value, focusNode: pin6FocusNode);
-                },
-                decoration: optInputDecoration),
-          ),
-          Container(
-            height: 60,
-            width: 50,
-            child: TextFormField(
-                style: TextStyle(fontSize: 24),
-                obscureText: true,
-                focusNode: pin6FocusNode,
-                onChanged: (value) {
-                  pin6FocusNode.unfocus();
-                },
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                decoration: optInputDecoration),
-          ),
-        ],
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(6, (index) => _buildOtpBox(index)),
       ),
     );
   }

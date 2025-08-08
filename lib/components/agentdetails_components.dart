@@ -22,7 +22,7 @@ firstHalfOfAgentDetails(BuildContext context) {
           height: 10,
         ),
         Text(
-          'John Smith',
+          'Younis',
           style: kh1,
         ),
         SizedBox(

@@ -67,11 +67,11 @@ class _SearchPropertyBodyState extends State<SearchPropertyBody> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: reusableTextField(hint: 'Search Properties',icon: Icon(Icons.search)),
+            child: GlowingTextField(hint: 'Search Properties',icon: Icon(Icons.search)),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: reusableTextField(hint: 'Zip code,Location,Country or City',icon: Icon(Icons.room)),
+            child: GlowingTextField(hint: 'Zip code,Location,Country or City',icon: Icon(Icons.room)),
           ),
 
 
